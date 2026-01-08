@@ -18,7 +18,7 @@ const index = () => {
     const {status,error,token,user} = useSelector(state => state.auth);
     const {orderRef} =  useSelector((state)=> state.orders) 
 
-console.log(user)
+// console.log(user)
      // getting user from the asyncStorage
   useEffect(() => {
   dispatch(loadToken());

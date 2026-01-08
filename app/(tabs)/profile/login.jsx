@@ -1,5 +1,6 @@
+import { Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -10,6 +11,7 @@ import {
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from "../../../features/auth/authSlice";
+// import index from '../cart/index.jsx';
 
 
 const Login = () => {
@@ -23,15 +25,19 @@ const Login = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   const isLoading = status === 'loading';
   const isTablet = width > 576;
+const redirected = useRef(false);
 
-  useEffect(() => {
-    if (status === 'succeeded' && user) {
-      router.replace(from ?? '/profile/sidebar');
-    }
-  }, [status, user]);
+useEffect(() => {
+  if (!redirected.current && status === 'succeeded' && user) {
+    redirected.current = true;
+    router.replace(from ?? "/cart");
+  }
+}, [status, user, from]);
+
 
   const onLogin = () => {
     if (!email || !password) return;
@@ -58,13 +64,35 @@ const Login = () => {
         forgot password?
       </Text>
       {/* Password  */}
-      <TextInput
-        placeholder="**************"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-        style={styles.input}
-      />
+      <View style={{ position: "relative",width: "100%",}}>
+      
+            <TextInput
+              placeholder="enter password"
+              secureTextEntry={!showPassword}
+              style={{backgroundColor:'#fff',
+                 padding: '5%',
+                marginBottom: '10%',
+                borderRadius:20,
+                borderColor:'#1d4ed8',
+                borderWidth: 1,
+                }}
+               value={password}
+              onChangeText={setPassword}
+            />
+            <TouchableOpacity
+              style={{position: "absolute",
+          right: 20,
+          top: "30%",
+          transform: [{ translateY: -11 }],}}
+              onPress={() => setShowPassword(!showPassword)}
+            >
+              <Ionicons
+                name={showPassword ? "eye-off" : "eye"}
+                size={22}
+                color="#777"
+              />
+            </TouchableOpacity>
+            </View>
 
       {error && <Text style={styles.error}>{error}</Text>}
 

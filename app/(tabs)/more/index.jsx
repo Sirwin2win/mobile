@@ -1,6 +1,6 @@
 import { Image } from "expo-image";
-import { useRouter } from "expo-router";
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { Link, useRouter } from "expo-router";
+import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 
 const data = [
   { id: 1, name: 'Vertical Pump', image: require('../../../assets/accessories/verticalPump.jpeg') },
@@ -19,13 +19,25 @@ const data = [
 const Index = () => {
   const router = useRouter()
   return (
-    <View>
-         <Text
-            onPress={() => router.push('/more/contact')}
-            style={{color:'#1d40d8', marginLeft:'20'}}
-          >
-            contact us page
-          </Text>
+    <View style={{marginVertical:20}}>
+    <View style={{ padding: 20, backgroundColor: '#fff' }}>
+  <Link href="/more/contact" asChild>
+    <Pressable>
+      <Text style={{ color: '#1d40d8', fontSize: 16 }}>
+        Contact Us
+      </Text>
+    </Pressable>
+  </Link>
+
+  <Link href="/profile/sidebar" asChild>
+    <Pressable>
+      <Text style={{ color: '#1d40d8', fontSize: 16, marginStart:150 }}>
+        Dashboard
+      </Text>
+    </Pressable>
+  </Link>
+</View>
+
     <FlatList
       data={data}
       keyExtractor={(item) => item.id.toString()}

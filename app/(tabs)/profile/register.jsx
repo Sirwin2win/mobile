@@ -1,6 +1,7 @@
+import { Ionicons } from "@expo/vector-icons";
 import { Link, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, useWindowDimensions } from 'react-native';
+import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, useWindowDimensions, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { create } from "../../../features/auth/authSlice";
 
@@ -17,6 +18,7 @@ const register = () => {
        const [address, setAddress] = useState('');
        const [phone, setPhone] = useState('');
        const [password, setPassword] = useState('');
+        const [showPassword, setShowPassword] = useState(false);
      
         const onRegister = () => {
         //  console.log(name,address,phone,email, password)
@@ -89,9 +91,11 @@ const register = () => {
         onChangeText={setPhone}
       />
 
+      <View style={{ position: "relative",width: "100%",}}>
+
       <TextInput
         placeholder="enter password"
-        secureTextEntry
+        secureTextEntry={!showPassword}
         style={{backgroundColor:'#fff',
            padding: '5%',
           marginBottom: '10%',
@@ -102,6 +106,20 @@ const register = () => {
          value={password}
         onChangeText={setPassword}
       />
+      <TouchableOpacity
+        style={{position: "absolute",
+    right: 20,
+    top: "30%",
+    transform: [{ translateY: -11 }],}}
+        onPress={() => setShowPassword(!showPassword)}
+      >
+        <Ionicons
+          name={showPassword ? "eye-off" : "eye"}
+          size={22}
+          color="#777"
+        />
+      </TouchableOpacity>
+      </View>
 
       {error && <Text style={{ color: 'red' }}>{error}</Text>}
 
