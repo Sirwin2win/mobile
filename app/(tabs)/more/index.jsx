@@ -19,7 +19,7 @@ const data = [
 const Index = () => {
   const router = useRouter()
   return (
-    <View style={{marginVertical:20}}>
+    <View style={{marginVertical:50}}>
     <View style={{ padding: 20, backgroundColor: '#fff' }}>
   <Link href="/more/contact" asChild>
     <Pressable>
@@ -31,7 +31,7 @@ const Index = () => {
 
   <Link href="/profile/sidebar" asChild>
     <Pressable>
-      <Text style={{ color: '#1d40d8', fontSize: 16, marginStart:150 }}>
+      <Text style={{flex:1,marginTop:-20, color: '#1d40d8', fontSize: 16, alignSelf:'flex-end' }}>
         Dashboard
       </Text>
     </Pressable>
